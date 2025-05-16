@@ -8,7 +8,8 @@ import torch
 sys.path.append("..")
 
 PARENT_DIR = Path(__file__).parent
-DATA_DIR = PARENT_DIR / "data"
+ROOT = Path(__file__).resolve().parent.parent
+DATA_DIR = ROOT / "Datasets" / "data"
 
 
 def flatten(line):
@@ -43,7 +44,8 @@ def read_CoNLL2002_format(filename):
     """
 
     # read file
-    lines = open(filename).read().strip()
+    with open(filename, encoding='utf-8') as f:
+        lines = f.read().strip()
 
     # find sentence-like boundaries
     lines = lines.split("\n\n")

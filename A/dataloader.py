@@ -1,3 +1,6 @@
+from A.get_dataset import get_data
+
+
 def load_dataset(dataset_name: str, subset: str = "CGNER"):
     """
     Load train, validation, and test data from the dataset.
@@ -44,4 +47,3 @@ def build_tag_maps(tag_sequences):
     id2tag = {idx: tag for tag, idx in tag2id.items()}
     print(f"Number of unique labels: {len(label_list)}")
     return label_list, tag2id, id2tag
-

@@ -3,7 +3,7 @@ import torch
 import os
 from functools import partial
 
-from A import dataloader, model, trainer, utils
+from A import dataloader, model, trainer, utils, get_dataset
 
 
 def parse_args():
@@ -14,19 +14,19 @@ def parse_args():
                         help="Name of dataset in get_dataset")
     parser.add_argument("--subset", type=str, default="CGNER",
                         choices=["CGNER", "FGNER"], help="Which subset of data to use")
-    parser.add_argument("--epochs", type=int, default=3,
+    parser.add_argument("--num_epochs", type=int, default=3,
                         help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=16,
                         help="Batch size")
-    parser.add_argument("--lr", type=float, default=4e-4,
+    parser.add_argument("--lm_lrs", type=float, default=4e-4,
                         help="Learning rate")
     parser.add_argument("--weight_decay", type=float, default=0.01,
                         help="Weight decay")
-    parser.add_argument("--lr_scheduler", type=str, default="cosine_with_restarts",
+    parser.add_argument("--lr_scheduler_type", type=str, default="cosine_with_restarts",
                         help="Learning rate scheduler type")
     parser.add_argument("--max_seq_length", type=int, default=512,
                         help="Maximum input sequence length")
-    parser.add_argument("--seed", type=int, default=11,
+    parser.add_argument("--seeds", type=int, default=11,
                         help="Random seed")
     parser.add_argument("--output_dir", type=str, default="./outputs",
                         help="Output directory to save models")
@@ -34,6 +34,7 @@ def parse_args():
                         help="Directory to cache model/tokenizer")
     parser.add_argument("--revision", type=str, default="main",
                         help="Model branch or revision")
+    
 
 
     return parser.parse_args()

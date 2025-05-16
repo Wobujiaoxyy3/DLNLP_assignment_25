@@ -1,6 +1,7 @@
 from pathlib import Path
 import numpy as np
-import get_dataset
+import A.get_dataset
+from A.get_dataset import MyDataset
 from seqeval.metrics import (
     accuracy_score,
     f1_score,
@@ -126,9 +127,9 @@ def create_dataset(tokenizer, train, dev, test, max_seq_length,
     val_encodings.pop("offset_mapping")
     test_encodings.pop("offset_mapping")
 
-    train_dataset = get_dataset.MyDataset(train_encodings, train_labels)
-    val_dataset = get_dataset.MyDataset(val_encodings, val_labels)
-    test_dataset = get_dataset.MyDataset(test_encodings, test_labels)
+    train_dataset = MyDataset(train_encodings, train_labels)
+    val_dataset = MyDataset(val_encodings, val_labels)
+    test_dataset = MyDataset(test_encodings, test_labels)
 
     return train_dataset, val_dataset, test_dataset
 
