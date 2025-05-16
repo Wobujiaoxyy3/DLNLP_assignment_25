@@ -1,0 +1,28 @@
+Abbreviation,Entities
+MAT,Material
+CEL,Chemical element
+CGE,Crystallographic entity
+CHP,Characterization process
+CPR,Chemical property
+DAM,Damage
+DEF,Defect
+MIC,Microstructure
+EQU,Equipment
+ETP,Environmental test parameter
+MAC,Material class
+MEC,Mechanism
+MEP,Mechanical property
+MFP,Manufacturing process
+MIP,Microstructural property
+MTP,Mechanical test parameter
+OBJ,Object
+DAT,Data set
+PRO,Property
+PRP,Process parameter
+VAL,Value
+LOC,Location
+SDE,Shape descriptor
+ODE,Orientation descriptor
+STD,State descriptor
+MOD,Model
+PQT,Physical quantity
