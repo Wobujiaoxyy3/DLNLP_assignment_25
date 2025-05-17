@@ -9,6 +9,12 @@ from seqeval.metrics import (
     recall_score,
 )
 
+from seqeval.metrics import classification_report
+import numpy as np
+import os
+import pandas as pd
+
+
 
 def ensure_dir(dir_path):
     """
@@ -167,3 +173,29 @@ def compute_metrics(p, id2tag):
     results["accuracy"] = accuracy_score(true_labels, true_predictions)
 
     return results
+
+def generate_and_save_report(predictions, labels, label_list, output_path=None):
+    # Convert predicted label indices to tag strings, ignoring padding (-100)
+    pred_tags = [
+        [label_list[p] for (p, l) in zip(pred, lab) if l != -100]
+        for pred, lab in zip(np.argmax(predictions, axis=2), labels)
+    ]
+    true_tags = [
+        [label_list[l] for (_, l) in zip(pred, lab) if l != -100]
+        for pred, lab in zip(np.argmax(predictions, axis=2), labels)
+    ]
+
+    # Sanity check: ensure lengths of predictions and labels match
+    assert all(len(p) == len(t) for p, t in zip(pred_tags, true_tags))
+
+    print("Test classification report")
+    report_str = classification_report(true_tags, pred_tags)
+    print(report_str)
+
+    # If output_path is specified, save the detailed report as a CSV file
+    if output_path:
+        report_dict = classification_report(true_tags, pred_tags, output_dict=True)
+        df = pd.DataFrame(report_dict).transpose()
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        df.to_csv(output_path, index=True)
+        print(f"Detailed classification report saved to {output_path}")

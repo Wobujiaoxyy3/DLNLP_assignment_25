@@ -93,6 +93,15 @@ def main():
     test_result = trainer_instance.evaluate(test_dataset, metric_key_prefix="test")
     print("Test Result:", test_result)
 
+    # Output predictions
+    test_predictions, test_labels, _ = trainer_instance.predict(test_dataset)
+    utils.generate_and_save_report(
+    predictions=test_predictions,
+    labels=test_labels,
+    label_list=label_list,
+    output_path="results/test_classification_report.csv"
+    )   
+
 
 if __name__ == "__main__":
     main()
